@@ -9,8 +9,6 @@
 ;; Version: 0.2
 ;; 04feb2008  +chris+
 
-(require 'git)
-
 (easy-mmode-defmap gitsum-diff-mode-shared-map
   '(("c" . gitsum-commit)
     ("u" . gitsum-undo)
@@ -30,7 +28,9 @@ This mode is meant to be activated by `M-x gitsum' or pressing `s' in git-status
 (define-key gitsum-diff-mode-map (kbd "C-/") 'gitsum-undo)
 (define-key gitsum-diff-mode-map (kbd "C-_") 'gitsum-undo)
 
-(define-key git-status-mode-map "s" 'gitsum)
+;; When git.el is loaded, hack into keymap.
+(when (boundp 'git-status-mode-map)
+  (define-key git-status-mode-map "s" 'gitsum))
 
 ;; Undo doesn't work in read-only buffers else.
 (defun gitsum-undo ()
