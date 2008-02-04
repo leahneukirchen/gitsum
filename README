@@ -15,8 +15,9 @@ If you are ready, commit the patch with `C-c C-c' or just `c'.
 Enter the message and press `C-c C-c' again.
 
 N.B: If you want to add files in the commit, use `M-x git-status' from
-git.el, add the files with `a', then switch to gitsum with `s'.
-You can only add files as a whole.
+git.el, add the files with `a', then switch to gitsum with `s'.  You
+can only add files as a whole.  You need git.el from the git
+repository then.
 
 
 Repository: http://github.com/chneukirchen/gitsum
