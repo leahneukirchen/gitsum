@@ -2,6 +2,10 @@
 ;; Copyright (C) 2008  Christian Neukirchen <purl.org/net/chneukirchen>
 ;; Licensed under the same terms as Emacs.
 
+;; Repository: http://github.com/chneukirchen/gitsum
+;;              git://github.com/chneukirchen/gitsum.git
+;; Patches to: chneukirchen@gmail.com
+
 ;; Version: 0.2
 ;; 04feb2008  +chris+
 
