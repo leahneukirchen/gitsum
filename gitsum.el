@@ -9,6 +9,8 @@
 ;; Version: 0.2
 ;; 04feb2008  +chris+
 
+(require 'git)
+
 (easy-mmode-defmap gitsum-diff-mode-shared-map
   '(("c" . gitsum-commit)
     ("u" . gitsum-undo)
