@@ -13,8 +13,9 @@
 
 (easy-mmode-defmap gitsum-diff-mode-shared-map
   '(("c" . gitsum-commit)
-    ("u" . gitsum-undo)
-    ("g" . gitsum-refresh))
+    ("g" . gitsum-refresh)
+    ("q" . gitsum-kill-buffer)
+    ("u" . gitsum-undo))
   "Basic keymap for `gitsum-diff-mode', bound to various prefix keys.")
 
 (define-derived-mode gitsum-diff-mode diff-mode "gitsum"
@@ -87,6 +88,12 @@ A numeric argument serves as a repeat count."
                            "git commit -F- --cleanup=strip")
   (with-current-buffer log-edit-parent-buffer
     (gitsum-refresh)))
+
+(defun gitsum-kill-buffer ()
+  "Kill the current buffer if it has no manual changes."
+  (interactive)
+  (unless (buffer-modified-p)
+    (kill-buffer nil)))
 
 (defun gitsum ()
   "Entry point into gitsum-diff-mode."
