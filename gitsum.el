@@ -37,6 +37,7 @@ This mode is meant to be activated by `M-x gitsum' or pressing `s' in git-status
 ;; Undo doesn't work in read-only buffers else.
 (defun gitsum-undo ()
   "Undo some previous changes.
+
 Repeat this command to undo more changes.
 A numeric argument serves as a repeat count."
   (interactive)
@@ -54,9 +55,10 @@ A numeric argument serves as a repeat count."
     (let ((diff (shell-command-to-string "git diff")))
       (if (zerop (length diff))
           (insert "## No changes. ##")
-        (insert diff)))
-    (set-buffer-modified-p nil)
-    (goto-char (point-min))))
+        (insert diff)
+        (goto-char (point-min))
+        (delete-matching-lines "^index \\|^diff --git ")))
+    (set-buffer-modified-p nil)))
 
 (defun gitsum-commit ()
   "Commit the patch as-is, asking for a commit message."
