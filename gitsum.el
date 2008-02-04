@@ -72,6 +72,6 @@ A numeric argument serves as a repeat count."
 (defun gitsum ()
   "Entry point into gitsum-diff-mode."
   (interactive)
-  (switch-to-buffer "*gitsum*")
+  (switch-to-buffer (generate-new-buffer "*gitsum*"))
   (gitsum-diff-mode)
   (gitsum-refresh))
