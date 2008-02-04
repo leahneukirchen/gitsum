@@ -74,7 +74,8 @@ A numeric argument serves as a repeat count."
   (with-current-buffer log-edit-parent-buffer
     (shell-command-on-region (point-min) (point-max)
                              "git apply --cached"))
-  (shell-command-on-region (point-min) (point-max) "git commit -F-"))
+  (shell-command-on-region (point-min) (point-max)
+                           "git commit -F- --cleanup=strip"))
 
 (defun gitsum ()
   "Entry point into gitsum-diff-mode."
