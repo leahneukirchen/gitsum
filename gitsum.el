@@ -49,7 +49,10 @@ A numeric argument serves as a repeat count."
     (insert "# Directory:  " default-directory "\n")
     (insert "# Use n and p to navigate and k to kill a hunk.  u is undo, g will refresh.\n")
     (insert "# Edit the patch as you please and press 'c' to commit.\n\n")
-    (insert (shell-command-to-string "git diff"))
+    (let ((diff (shell-command-to-string "git diff")))
+      (if (zerop (length diff))
+          (insert "## No changes. ##")
+        (insert diff)))
     (set-buffer-modified-p nil)
     (goto-char (point-min))))
 
@@ -77,7 +80,9 @@ A numeric argument serves as a repeat count."
     (shell-command-on-region (point-min) (point-max)
                              "git apply --cached"))
   (shell-command-on-region (point-min) (point-max)
-                           "git commit -F- --cleanup=strip"))
+                           "git commit -F- --cleanup=strip")
+  (with-current-buffer log-edit-parent-buffer
+    (gitsum-refresh)))
 
 (defun gitsum ()
   "Entry point into gitsum-diff-mode."
