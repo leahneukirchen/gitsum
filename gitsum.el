@@ -74,5 +74,4 @@ A numeric argument serves as a repeat count."
   (interactive)
   (switch-to-buffer "*gitsum*")
   (gitsum-diff-mode)
-  (font-lock-mode 1)
   (gitsum-refresh))
