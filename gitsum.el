@@ -56,7 +56,7 @@ A numeric argument serves as a repeat count."
   (interactive)
   (shell-command-on-region (point-min) (point-max) "git apply --check --cached")
   (let ((buffer (get-buffer-create "*gitsum-commit*")))
-    (shell-command-on-region (point-min) (point-max) "git apply --stat" buffer)
+    (shell-command-on-region (point-min) (point-max) "(cat; git diff --cached) | git apply --stat" buffer)
     (with-current-buffer buffer
       (goto-char (point-min))
       (insert "\n")
