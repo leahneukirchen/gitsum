@@ -62,6 +62,9 @@ A numeric argument serves as a repeat count."
       (insert "\n")
       (while (re-search-forward "^" nil t)
         (replace-match "# " nil nil))
+      (forward-line 0)
+      (forward-char -1)
+      (delete-region (point) (point-max))
       (goto-char (point-min)))
     (log-edit 'gitsum-do-commit nil nil buffer)))
 
