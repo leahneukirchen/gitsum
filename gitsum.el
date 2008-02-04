@@ -14,6 +14,7 @@
 (easy-mmode-defmap gitsum-diff-mode-shared-map
   '(("c" . gitsum-commit)
     ("g" . gitsum-refresh)
+    ("s" . gitsum-switch-to-git-status)
     ("q" . gitsum-kill-buffer)
     ("u" . gitsum-undo))
   "Basic keymap for `gitsum-diff-mode', bound to various prefix keys.")
@@ -94,6 +95,11 @@ A numeric argument serves as a repeat count."
   (interactive)
   (unless (buffer-modified-p)
     (kill-buffer nil)))
+
+(defun gitsum-switch-to-git-status ()
+  "Switch to git-status."
+  (interactive)
+  (git-status default-directory))
 
 (defun gitsum ()
   "Entry point into gitsum-diff-mode."
