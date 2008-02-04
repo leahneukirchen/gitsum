@@ -9,6 +9,8 @@
 ;; Version: 0.2
 ;; 04feb2008  +chris+
 
+(eval-when-compile (require 'cl))
+
 (easy-mmode-defmap gitsum-diff-mode-shared-map
   '(("c" . gitsum-commit)
     ("u" . gitsum-undo)
