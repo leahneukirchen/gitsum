@@ -97,7 +97,10 @@ A numeric argument serves as a repeat count."
   "Push the current repository."
   (interactive)
   (let ((args (read-string "Shell command: " "git push ")))
-    (shell-command args)))
+    (let ((buffer (get-buffer-create " *gitsum-push*")))
+      (switch-to-buffer buffer)
+      (insert "Running " args "...\n\n")
+      (start-process-shell-command "gitsum-push" buffer args))))
 
 (defun gitsum-revert ()
   "Revert the active patches in the working directory."
