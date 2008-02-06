@@ -14,6 +14,7 @@
 (easy-mmode-defmap gitsum-diff-mode-shared-map
   '(("c" . gitsum-commit)
     ("g" . gitsum-refresh)
+    ("R" . gitsum-revert)
     ("s" . gitsum-switch-to-git-status)
     ("q" . gitsum-kill-buffer)
     ("u" . gitsum-undo))
@@ -78,6 +79,17 @@ A numeric argument serves as a repeat count."
       (delete-region (point) (point-max))
       (goto-char (point-min)))
     (log-edit 'gitsum-do-commit nil nil buffer)))
+
+(defun gitsum-revert ()
+  "Revert the active patches in the working directory."
+  (interactive)
+  (let ((count (count-matches "^@@" (point-min) (point-max))))
+    (if (not (yes-or-no-p
+              (format "Are you sure you want to revert these %d hunk(s)? "
+                      count)))
+        (message "Revert canceled.")
+      (shell-command-on-region (point-min) (point-max) "git apply --reverse")
+      (gitsum-refresh))))
 
 (defun gitsum-do-commit ()
   "Perform the actual commit using the current buffer as log message."
