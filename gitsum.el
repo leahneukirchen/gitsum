@@ -12,7 +12,8 @@
 (eval-when-compile (require 'cl))
 
 (easy-mmode-defmap gitsum-diff-mode-shared-map
-  '(("c" . gitsum-commit)
+  '(("A" . gitsum-amend)
+    ("c" . gitsum-commit)
     ("g" . gitsum-refresh)
     ("P" . gitsum-push)
     ("R" . gitsum-revert)
@@ -80,6 +81,17 @@ A numeric argument serves as a repeat count."
       (delete-region (point) (point-max))
       (goto-char (point-min)))
     (log-edit 'gitsum-do-commit nil nil buffer)))
+
+(defun gitsum-amend ()
+  "Amend the last commit."
+  (interactive)
+  (let ((last (substring (shell-command-to-string
+                          "git log -1 --pretty=oneline --abbrev-commit")
+                         0 -1)))
+    (when (y-or-n-p (concat "Are you sure you want to amend to " last "? "))
+      (shell-command-on-region (point-min) (point-max) "git apply --cached")
+      (shell-command "git commit --amend -C HEAD")
+      (gitsum-refresh))))
 
 (defun gitsum-push ()
   "Push the current repository."
