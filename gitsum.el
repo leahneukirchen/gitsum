@@ -14,6 +14,7 @@
 (easy-mmode-defmap gitsum-diff-mode-shared-map
   '(("c" . gitsum-commit)
     ("g" . gitsum-refresh)
+    ("P" . gitsum-push)
     ("R" . gitsum-revert)
     ("s" . gitsum-switch-to-git-status)
     ("q" . gitsum-kill-buffer)
@@ -79,6 +80,12 @@ A numeric argument serves as a repeat count."
       (delete-region (point) (point-max))
       (goto-char (point-min)))
     (log-edit 'gitsum-do-commit nil nil buffer)))
+
+(defun gitsum-push ()
+  "Push the current repository."
+  (interactive)
+  (let ((args (read-string "Shell command: " "git push ")))
+    (shell-command args)))
 
 (defun gitsum-revert ()
   "Revert the active patches in the working directory."
