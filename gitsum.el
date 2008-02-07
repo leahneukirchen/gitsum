@@ -141,3 +141,5 @@ A numeric argument serves as a repeat count."
   (switch-to-buffer (generate-new-buffer "*gitsum*"))
   (gitsum-diff-mode)
   (gitsum-refresh))
+
+(provide 'gitsum)
