@@ -15,6 +15,7 @@
   '(("A" . gitsum-amend)
     ("c" . gitsum-commit)
     ("g" . gitsum-refresh)
+    ("k" . gitsum-kill-dwim)
     ("P" . gitsum-push)
     ("R" . gitsum-revert)
     ("s" . gitsum-switch-to-git-status)
@@ -63,7 +64,24 @@ A numeric argument serves as a repeat count."
         (insert diff)
         (goto-char (point-min))
         (delete-matching-lines "^index \\|^diff --git ")))
-    (set-buffer-modified-p nil)))
+    (set-buffer-modified-p nil)
+    (goto-char (point-min))
+    (forward-line 4)))
+
+(defun gitsum-kill-dwim ()
+  "Kill the current hunk or file depending on point."
+  (interactive)
+  (let ((inhibit-read-only t))
+    (if (looking-at "^---\\|^\\+\\+\\+")
+        (diff-file-kill)
+      (diff-hunk-kill)
+      (save-excursion
+        (when (or (looking-at "^--- ")
+                  (eobp))
+          (let ((here (point)))
+            (forward-line -2)
+            (when (looking-at "^--- ")
+              (delete-region here (point)))))))))
 
 (defun gitsum-commit ()
   "Commit the patch as-is, asking for a commit message."
