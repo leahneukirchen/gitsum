@@ -87,9 +87,11 @@ A numeric argument serves as a repeat count."
   "Commit the patch as-is, asking for a commit message."
   (interactive)
   (shell-command-on-region (point-min) (point-max) "git apply --check --cached")
-  (let ((buffer (get-buffer-create "*gitsum-commit*")))
+  (let ((buffer (get-buffer-create "*gitsum-commit*"))
+        (dir default-directory))
     (shell-command-on-region (point-min) (point-max) "(cat; git diff --cached) | git apply --stat" buffer)
     (with-current-buffer buffer
+      (setq default-directory dir)
       (goto-char (point-min))
       (insert "\n")
       (while (re-search-forward "^" nil t)
