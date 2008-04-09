@@ -127,7 +127,8 @@ A numeric argument serves as a repeat count."
 (defun gitsum-kill-buffer ()
   "Kill the current buffer if it has no manual changes."
   (interactive)
-  (unless (buffer-modified-p)
+  (if (buffer-modified-p)
+      (message "Patch was modified, use C-x k to kill.")
     (kill-buffer nil)))
 
 (defun gitsum-switch-to-git-status ()
