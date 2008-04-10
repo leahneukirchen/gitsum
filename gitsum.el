@@ -163,4 +163,8 @@ A numeric argument serves as a repeat count."
   (gitsum-diff-mode)
   (gitsum-refresh))
 
+;; viper compatible
+(eval-after-load "viper"
+  '(add-to-list 'viper-emacs-state-mode-list 'gitsum-diff-mode))
+
 (provide 'gitsum)
