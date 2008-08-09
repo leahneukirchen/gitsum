@@ -172,6 +172,7 @@ A numeric argument serves as a repeat count."
   (interactive)
   (switch-to-buffer (generate-new-buffer "*gitsum*"))
   (gitsum-diff-mode)
+  (set (make-local-variable 'list-buffers-directory) default-directory)
   (gitsum-refresh))
 
 ;; viper compatible
