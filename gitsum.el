@@ -9,6 +9,8 @@
 ;; Version: 0.2
 ;; 04feb2008  +chris+
 
+;;; Code:
+
 (eval-when-compile (require 'cl))
 
 (defcustom gitsum-reuse-buffer t
@@ -205,3 +207,4 @@ A numeric argument serves as a repeat count."
   '(add-to-list 'viper-emacs-state-mode-list 'gitsum-diff-mode))
 
 (provide 'gitsum)
+;;; gitsum.el ends here
